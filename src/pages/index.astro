@@ -1,31 +1,99 @@
 ---
-import Search from "lucide-astro/Search";
-import Layout from "@/layouts/Main.astro";
+const gameCategories = ["Arcade", "Adventure", "Puzzle", "Action"];
 ---
 
-<Layout>
-  <div class="flex-1 flex flex-col items-center justify-center px-4">
-    <h1 class="text-5xl md:text-7xl font-extrabold text-text tracking-tighter mb-12 uppercase">
-      Interstellar
-    </h1>
-    <p id="tagline" class="min-h-[1.5rem] mb-6 -mt-10 text-base md:text-lg text-text-secondary/80 tracking-wide leading-6 opacity-0 transition-opacity duration-150"></p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#070817" />
+    <title>Galaxy Games</title>
+    <meta name="description" content="Galaxy Games — discover your next favorite game." />
+  </head>
+  <body>
+    <div class="stars"></div>
+    <div class="nebula nebula-one"></div>
+    <div class="nebula nebula-two"></div>
 
-    <div class="w-full max-w-2xl">
-      <div class="relative">
-        <Search
-          class="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-text-secondary"
-          strokeWidth={2}
-        />
-        <input
-          id="search"
-          class="w-full h-14 pl-12 pr-5 rounded-lg bg-white/5 border border-white/10 text-base text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 focus:bg-white/[0.07]"
-          placeholder="Search or enter URL"
-          type="search"
-          autocomplete="off"
-          spellcheck="false"
-        />
-      </div>
-    </div>
-  </div>
-</Layout>
-<script src="@/lib/home.ts"></script>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Galaxy Games home">
+        <span class="brand-orbit"><span class="brand-planet"></span></span>
+        <span>GALAXY <b>GAMES</b></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#games">Games</a>
+        <a href="#discover">Discover</a>
+        <a href="/settings">Settings</a>
+      </nav>
+      <a class="play-button small" href="#games">Play now <span>↗</span></a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> Welcome to the game galaxy</p>
+          <h1>Find your next<br /><i>favorite world.</i></h1>
+          <p class="intro">Explore a universe of games built for quick breaks, long nights, and every adventure in between.</p>
+          <div class="hero-actions">
+            <a class="play-button" href="#games">Explore games <span>→</span></a>
+            <a class="text-link" href="#discover">How it works <span>↓</span></a>
+          </div>
+        </div>
+        <div class="planet-scene" aria-hidden="true">
+          <div class="planet-glow"></div>
+          <div class="planet-ring ring-back"></div>
+          <div class="planet"><div class="planet-shade"></div><div class="planet-crater crater-one"></div><div class="planet-crater crater-two"></div></div>
+          <div class="planet-ring ring-front"></div>
+          <span class="orbit-star star-one">✦</span>
+          <span class="orbit-star star-two">✦</span>
+        </div>
+      </section>
+
+      <section id="games" class="games-section">
+        <div class="section-heading">
+          <div><p class="eyebrow"><span></span> The collection</p><h2>Choose your <i>adventure.</i></h2></div>
+          <a class="text-link" href="/games">View all games <span>↗</span></a>
+        </div>
+        <div class="game-grid">
+          <a class="game-card card-purple" href="/games"><span class="game-number">01</span><span class="game-symbol">✦</span><h3>Star<br />Runner</h3><p>Arcade · Solo</p><span class="card-arrow">↗</span></a>
+          <a class="game-card card-blue" href="/games"><span class="game-number">02</span><span class="game-symbol">◈</span><h3>Neon<br />Drift</h3><p>Action · Multiplayer</p><span class="card-arrow">↗</span></a>
+          <a class="game-card card-pink" href="/games"><span class="game-number">03</span><span class="game-symbol">✧</span><h3>Cosmic<br />Calm</h3><p>Puzzle · Relaxing</p><span class="card-arrow">↗</span></a>
+        </div>
+      </section>
+
+      <section id="discover" class="discover-section">
+        <p class="eyebrow"><span></span> One launchpad, endless worlds</p>
+        <h2>Play beyond<br /><i>the ordinary.</i></h2>
+        <p>Save your favorites, discover something new, and jump straight into the action.</p>
+        <div class="category-list">
+          {gameCategories.map((category, index) => <a href="/games" class="category"><span>0{index + 1}</span>{category}<b>↗</b></a>)}
+        </div>
+      </section>
+    </main>
+
+    <footer><span>GALAXY GAMES</span><span class="footer-line"></span><span>PLAY YOUR WAY</span></footer>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(html) { scroll-behavior: smooth; }
+  :global(body) { margin: 0; background: #070817; color: #f4f2ff; font-family: Inter, ui-sans-serif, system-ui, sans-serif; overflow-x: hidden; }
+  .stars { position: fixed; inset: 0; opacity: .55; pointer-events: none; background-image: radial-gradient(#fff 1px, transparent 1px), radial-gradient(#a89cff 1px, transparent 1px); background-size: 91px 91px, 137px 137px; background-position: 12px 24px, 60px 80px; }
+  .nebula { position: fixed; width: 600px; height: 600px; border-radius: 50%; filter: blur(85px); opacity: .16; pointer-events: none; }
+  .nebula-one { top: -260px; left: -220px; background: #5d3bd1; }.nebula-two { right: -300px; top: 35%; background: #197fc2; }
+  .site-header, main, footer { position: relative; z-index: 1; }
+  .site-header { display: flex; align-items: center; justify-content: space-between; width: min(1180px, calc(100% - 48px)); margin: 0 auto; padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .brand { display: flex; align-items: center; gap: 10px; color: #fff; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-decoration: none; }.brand b { color: #9f8cff; }.brand-orbit { position: relative; display: grid; place-items: center; width: 27px; height: 27px; border: 1px solid #9f8cff; border-radius: 50%; transform: rotate(-25deg); }.brand-orbit::after { content: ""; position: absolute; width: 35px; height: 10px; border: 1px solid #63d9ff; border-radius: 50%; }.brand-planet { width: 9px; height: 9px; border-radius: 50%; background: linear-gradient(135deg, #fff, #806cff); }
+  nav { display: flex; gap: 34px; } nav a, .text-link { color: #9ca0bd; font-size: 12px; text-decoration: none; } nav a:hover, .text-link:hover { color: #fff; }
+  .play-button { display: inline-flex; align-items: center; gap: 22px; padding: 14px 18px; border: 1px solid #9c8aff; border-radius: 5px; color: #fff; background: linear-gradient(135deg, #7459e8, #4831a5); box-shadow: 0 0 28px rgba(116,89,232,.28); font-size: 12px; text-decoration: none; transition: transform .2s, box-shadow .2s; }.play-button:hover { transform: translateY(-2px); box-shadow: 0 0 38px rgba(116,89,232,.5); }.play-button span { font-size: 18px; }.play-button.small { padding: 10px 13px; gap: 12px; font-size: 11px; }
+  .hero { display: flex; align-items: center; justify-content: space-between; width: min(1180px, calc(100% - 48px)); min-height: 625px; margin: 0 auto; }.hero-copy { width: 53%; }.eyebrow { display: flex; align-items: center; gap: 9px; color: #8f91ae; font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }.eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: #8d7aff; box-shadow: 0 0 14px #8d7aff; }
+  h1, h2, h3, p { margin-top: 0; } h1 { margin-bottom: 25px; font-size: clamp(3.8rem, 7vw, 7.1rem); line-height: .88; letter-spacing: -.09em; }.hero h1 i, h2 i { color: #a596ff; font-style: normal; }.intro { max-width: 390px; margin-bottom: 32px; color: #9297b3; font-size: 15px; line-height: 1.7; }.hero-actions { display: flex; align-items: center; gap: 28px; }.text-link { display: inline-flex; align-items: center; gap: 10px; }.text-link span { color: #b09eff; font-size: 16px; }
+  .planet-scene { position: relative; width: 490px; height: 490px; }.planet-glow { position: absolute; inset: 65px; border-radius: 50%; background: #6d4ee7; filter: blur(75px); opacity: .26; }.planet { position: absolute; top: 105px; left: 96px; width: 300px; height: 300px; overflow: hidden; border-radius: 50%; background: radial-gradient(circle at 31% 25%, #c4b8ff 0 3%, #7864df 23%, #30237c 61%, #100d32 100%); box-shadow: inset -30px -30px 55px #08071f, 0 0 45px rgba(136,111,255,.35); }.planet-shade { position: absolute; inset: 0; background: radial-gradient(circle at 75% 20%, transparent 0 22%, rgba(5,4,24,.45) 70%); }.planet-crater { position: absolute; border-radius: 50%; background: rgba(38, 24, 105, .35); box-shadow: inset 6px 4px 7px rgba(224,218,255,.17); }.crater-one { width: 55px; height: 25px; left: 70px; top: 82px; transform: rotate(-20deg); }.crater-two { width: 35px; height: 18px; right: 62px; top: 156px; transform: rotate(22deg); }.planet-ring { position: absolute; top: 180px; left: 13px; width: 465px; height: 135px; border: 2px solid rgba(169,157,255,.75); border-radius: 50%; transform: rotate(-18deg); }.ring-back { z-index: 0; border-color: rgba(112,211,255,.45); clip-path: inset(0 0 50% 0); }.planet { z-index: 1; }.ring-front { z-index: 2; clip-path: inset(50% 0 0 0); }.orbit-star { position: absolute; color: #b4edff; text-shadow: 0 0 12px #69dfff; }.star-one { top: 65px; right: 45px; }.star-two { bottom: 68px; left: 34px; color: #d1a6ff; }
+  .games-section { width: min(1180px, calc(100% - 48px)); margin: 20px auto 130px; }.section-heading { display: flex; align-items: end; justify-content: space-between; margin-bottom: 28px; }.section-heading h2, .discover-section h2 { margin: 9px 0 0; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: .9; letter-spacing: -.08em; }.game-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }.game-card { position: relative; min-height: 315px; padding: 25px; overflow: hidden; border-radius: 6px; color: #fff; text-decoration: none; transition: transform .25s; }.game-card:hover { transform: translateY(-7px); }.game-card::after { content: ""; position: absolute; width: 260px; height: 260px; right: -65px; bottom: -100px; border-radius: 50%; background: rgba(255,255,255,.14); filter: blur(25px); }.card-purple { background: linear-gradient(145deg, #4530a0, #151134); }.card-blue { background: linear-gradient(145deg, #187da4, #101b4b); }.card-pink { background: linear-gradient(145deg, #a32f91, #31134f); }.game-number, .game-symbol, .card-arrow { position: relative; z-index: 1; }.game-number { color: rgba(255,255,255,.65); font-size: 10px; letter-spacing: .1em; }.game-symbol { position: absolute; top: 22px; right: 26px; font-size: 52px; color: rgba(255,255,255,.75); }.game-card h3 { position: absolute; z-index: 1; bottom: 54px; margin: 0; font-size: 35px; line-height: .88; letter-spacing: -.07em; }.game-card p { position: absolute; z-index: 1; bottom: 23px; margin: 0; color: rgba(255,255,255,.65); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }.card-arrow { position: absolute; right: 25px; bottom: 22px; font-size: 20px; }
+  .discover-section { width: min(700px, calc(100% - 48px)); margin: 0 auto 130px; text-align: center; }.discover-section .eyebrow { justify-content: center; }.discover-section > p:not(.eyebrow) { color: #949ab5; font-size: 14px; }.category-list { margin-top: 32px; border-top: 1px solid rgba(255,255,255,.11); text-align: left; }.category { display: flex; align-items: center; gap: 28px; padding: 18px 5px; border-bottom: 1px solid rgba(255,255,255,.11); color: #e8e8f7; font-size: 17px; text-decoration: none; }.category span { color: #777993; font-size: 10px; }.category b { margin-left: auto; color: #a596ff; font-weight: 400; }.category:hover { color: #bbaeff; padding-left: 12px; }
+  footer { display: flex; gap: 15px; align-items: center; width: min(1180px, calc(100% - 48px)); margin: 0 auto; padding: 25px 0; border-top: 1px solid rgba(255,255,255,.1); color: #666986; font-size: 9px; font-weight: 700; letter-spacing: .18em; }.footer-line { height: 1px; flex: 1; background: rgba(255,255,255,.1); }
+  @media (max-width: 800px) { nav { display: none; }.hero { min-height: auto; padding: 90px 0 110px; }.hero-copy { width: 100%; }.planet-scene { display: none; }.game-grid { grid-template-columns: 1fr; }.game-card { min-height: 230px; }.section-heading { align-items: start; gap: 22px; flex-direction: column; }.site-header .play-button { display: none; } }
+  @media (max-width: 500px) { .site-header, .hero, .games-section, footer { width: calc(100% - 32px); }.discover-section { width: calc(100% - 32px); } h1 { font-size: 4.4rem; }.hero-actions { align-items: start; flex-direction: column; gap: 20px; } footer span:last-child { display: none; } }
+</style>
